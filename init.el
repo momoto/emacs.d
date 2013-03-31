@@ -5,8 +5,9 @@
 (tool-bar-mode -1)
 
 (setq-default tab-width 2           ;; タブ幅
-              indent-tabs-mode nil) ;; t => インデントにタブを使用する nil => スペースを使用する
+              indent-tabs-mode nil) ;; インデントにスペースを使用する
 
+(setq-default truncate-lines t)     ;; 行を画面端で折り返さない
 
 ;; インプットメソッドを指定する
 ;; (require 'uim-leim)
@@ -15,7 +16,7 @@
 ;(setq default-input-method "japanese-mozc-uim")	; Mozc
 (setq default-input-method "japanese-mozc")
 (setq mozc-candidate-style 'overlay)
-
+(global-set-key [zenkaku-hankaku] 'toggle-input-method)
 
 ;; Auto-savingの無効化
 ;; (setq make-backup-files nil)
