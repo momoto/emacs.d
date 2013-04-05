@@ -10,12 +10,15 @@
 (setq-default truncate-lines t)     ;; 行を画面端で折り返さない
 
 ;; インプットメソッドを指定する
-;; (require 'uim-leim)
-(require 'mozc)
+(if (file-exists-p (expand-file-name "mozc.el")) (
+  (require 'mozc)
+  (setq default-input-method "japanese-mozc")
+  (setq mozc-candidate-style 'overlay))
+)
+;(require 'uim-leim)
 ;(setq default-input-method "japanese-anthy-utf8-uim")	; Anthy (UTF-8)
 ;(setq default-input-method "japanese-mozc-uim")	; Mozc
-(setq default-input-method "japanese-mozc")
-(setq mozc-candidate-style 'overlay)
+
 (global-set-key [zenkaku-hankaku] 'toggle-input-method)
 
 ;; Auto-savingの無効化
