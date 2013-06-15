@@ -1,4 +1,3 @@
-
 ;; (message "(init.el) user-emacs-directory => %s" user-emacs-directory)
 ;; (message "(init.el) user-login-name => %s" user-login-name)
 ;; (message "(init.el) system-type => %s" system-type)
@@ -19,12 +18,13 @@
 (setq delete-auto-save-files t) ;; 保存が完了した時にAuto-saveファイルを消す
 
 ;; markdown-mode
-;(autoload 'markdown-mode "markdown-mode.el"
-;   "Major mode for editing Markdown files" t)
 (when (file-exists-p (concat user-emacs-directory "markdown-mode/markdown-mode.el"))
-  (autoload 'markdown-mode "markdown-mode/markdown-mode.el" "Major mode for editing Markdown files" t)
+  (autoload 'markdown-mode "markdown-mode/markdown-mode.el"
+    "Major mode for editing Markdown files" t)
   (setq auto-mode-alist
-    (cons '("\.md" . markdown-mode) auto-mode-alist)))
+    (cons '("\.md" . markdown-mode) auto-mode-alist))
+  (setq auto-mode-alist
+    (cons '("\.markdown" . markdown-mode) auto-mode-alist)))
 
 ;; php-mode
 (when (file-exists-p (concat user-emacs-directory "php-mode/php-mode.el"))
