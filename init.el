@@ -18,6 +18,14 @@
 (setq make-backup-files nil)    ;; Auto-savingの無効化
 (setq delete-auto-save-files t) ;; 保存が完了した時にAuto-saveファイルを消す
 
+;; markdown-mode
+;(autoload 'markdown-mode "markdown-mode.el"
+;   "Major mode for editing Markdown files" t)
+(when (file-exists-p (concat user-emacs-directory "markdown-mode/markdown-mode.el"))
+  (autoload 'markdown-mode "markdown-mode/markdown-mode.el" "Major mode for editing Markdown files" t)
+  (setq auto-mode-alist
+    (cons '("\.md" . markdown-mode) auto-mode-alist)))
+
 ;; php-mode
 (when (file-exists-p (concat user-emacs-directory "php-mode/php-mode.el"))
   (load "php-mode/php-mode")
