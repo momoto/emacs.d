@@ -18,7 +18,6 @@ config/initializers/secret_token.rb
 /.bundle
 /vendor/bundle
 
-Gemfile.lock
 .ruby-version
 .ruby-gemset
 .rvmrc
