@@ -1,0 +1,15 @@
+
+<h2>条件抽出</h2>
+<%= form_tag(stats_url(id: @meta[:id]), :class=>'pure-form pure-form-stacked') do %>
+  <legend>APIパラメータ</legend>
+  <fieldset>
+  <% @meta[:fields].each do |field| %>
+    <%= label_tag field[:id], field[:name] %>
+    <%= select_tag field[:id],
+          options_for_select(field[:options], field[:selected]),
+          :multiple => true, :size => 5, :class => 'pure-input-2-3' %>
+    <% if field[:description] %><p><%= field[:description] %></p><% end %>
+  <% end %>
+  </fieldset>
+  <%= submit_tag('条件抽出', :class=>'pure-button pure-button-primary') %>
+<% end %>

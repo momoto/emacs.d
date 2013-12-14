@@ -1,0 +1,17 @@
+
+<table class="pure-table">
+  <caption><%= @stats[:name] %></caption>
+  <thead>
+    <tr>
+<% @stats[:meta].each do |k, v| %>
+      <th><%= v[:name] %></th>
+<% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @stats[:data].each do |rows| %>
+    <tr><% rows.each do |data| %><td><%= data %></td><% end %></tr>
+<% end %>
+  </tbody>
+</table>
