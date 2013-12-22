@@ -4,11 +4,11 @@
 ;; (message user-login-name)
 ;; (message system-type)
 ;; (message window-system)
+;; (message buffer-file-name)
 
 ;; General
 ;; =======
 
-(add-to-list 'load-path (expand-file-name default-directory))
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
@@ -44,8 +44,10 @@
              '(left . 10))
        default-frame-alist))
 
-;; Functions
+;; Libraries
 ;; =========
+
+(add-to-list 'load-path (expand-file-name default-directory))
 
 (defmacro add-hook-fn (name &rest body)
   `(add-hook ,name #'(lambda () ,@body)))
@@ -59,26 +61,8 @@
      ,@(mapcar (lambda (f) `(autoload ',f ,lib nil t)) func)
      (eval-after-load ,lib '(progn ,@body))))
 
-;; Syntax
-;; ======
-
-(delay-load (php-mode) "php-mode/php-mode")
-(delay-load (markdown-mode) "markdown-mode/markdown-mode")
-(delay-load (ruby-mode) "enhanced-ruby-mode/ruby-mode")
-
-(add-hook-fn 'php-mode-hook
-             (setq tab-width 2)
-             (c-set-offset 'arglist-intro '+)
-             (c-set-offset 'arglist-close 0))
-
-(add-to-list 'auto-mode-alist
-             '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
-(add-to-list 'auto-mode-alist
-             '("\.md" . markdown-mode))
-(add-to-list 'auto-mode-alist
-             '("\.markdown" . markdown-mode))
-(add-to-list 'auto-mode-alist
-             '("\\.rb$" . ruby-mode))
+(when (file-exists-p "lisp/syntax.el")
+  (load "lisp/syntax"))
 
 ;;;
 ;;; end of file
