@@ -41,4 +41,7 @@
 ;(setq default-input-method "japanese-anthy-utf8-uim")	; Anthy (UTF-8)
 ;(setq default-input-method "japanese-mozc-uim")	; Mozc
 
+(load "enhanced-ruby-mode/ruby-mode.el")
+(add-to-list 'auto-mode-alist '("\\.rb$" . php-mode))
+
 (global-set-key [zenkaku-hankaku] 'toggle-input-method)
