@@ -4,3 +4,6 @@
 [submodule "php-mode"]
 	path = php-mode
 	url = https://github.com/ejmr/php-mode.git
+[submodule "enhanced-ruby-mode"]
+	path = enhanced-ruby-mode
+	url = https://github.com/jacott/Enhanced-Ruby-Mode.git
