@@ -9,14 +9,14 @@
 ;; Markdown
 ;; ========
 
-(delay-load (markdown-mode) "markdown-mode/markdown-mode")
+(delay-load (markdown-mode) "site-lisp/markdown-mode/markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown" . markdown-mode))
 
 ;; PHP
 ;; ===
 
-(delay-load (php-mode) "php-mode/php-mode")
+(delay-load (php-mode) "site-lisp/php-mode/php-mode")
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 (add-hook 'php-mode-hook '(lambda () (flymake-mode t)))
 
