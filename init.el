@@ -1,10 +1,9 @@
-;; (message (getenv "HOME"))
-;; (message user-emacs-directory)
-;; (message default-directory)
-;; (message user-login-name)
-;; (message system-type)
-;; (message window-system)
-;; (message buffer-file-name)
+;; (message "User home directory: %s" (getenv "HOME"))
+;; (message "Emacs configuration: %s" default-directory)
+;; (message "buffer-file-name: %s" buffer-file-name)
+(message "User: %s" user-login-name)
+(message "System: %s" system-type)
+(message "Window System: %s" window-system)
 
 ;; General
 ;; =======
@@ -12,13 +11,13 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
-(setq-default tab-width 2           ;; タブ幅
-              indent-tabs-mode nil) ;; インデントにスペースを使用する
-(setq-default truncate-lines 1)     ;; 行を画面端で折り返さない
-(setq visible-bell 1) ;; Visible Bell有効
-(tool-bar-mode 0)     ;; ツールバー非表示
-(menu-bar-mode 0)     ;; メニューバー非表示
-(scroll-bar-mode 0)   ;; スクロールバー非表示
+(setq-default tab-width 2              ;; タブ幅
+              indent-tabs-mode nil)    ;; インデントにスペースを使用する
+(setq-default truncate-lines 1)        ;; 行を画面端で折り返さない
+(setq visible-bell 1)                  ;; Visible Bell有効
+(if window-system (tool-bar-mode 0))   ;; ツールバー非表示
+(if window-system (scroll-bar-mode 0)) ;; スクロールバー非表示
+(menu-bar-mode 0)                      ;; メニューバー非表示
 
 ;; Auto-savingの無効化
 (setq make-backup-files nil)
