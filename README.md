@@ -2,8 +2,10 @@
 
 ## Install
 
+```bash
 $ cd ~/.emacs.d/
 $ git clone git@github.com:momoto/emacs.d.git .
+```
 
 ## Configuration files for Emacs
 
