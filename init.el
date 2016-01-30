@@ -4,6 +4,7 @@
 (message "User: %s" user-login-name)
 (message "System: %s" system-type)
 (message "Window System: %s" window-system)
+(message "Emacs Major Version: %s" emacs-major-version)
 
 ;; General
 ;; =======
@@ -15,18 +16,12 @@
               indent-tabs-mode nil)    ;; インデントにスペースを使用する
 (setq-default truncate-lines 1)        ;; 行を画面端で折り返さない
 (setq visible-bell 1)                  ;; Visible Bell有効
-(if window-system (tool-bar-mode 0))   ;; ツールバー非表示
-(if window-system (scroll-bar-mode 0)) ;; スクロールバー非表示
 (menu-bar-mode 0)                      ;; メニューバー非表示
 
-;; Auto-savingの無効化
-(setq make-backup-files nil)
-;; 保存が完了した時にAuto-saveファイルを消す
-(setq delete-auto-save-files t)
-;; 行間を調節
-(setq-default line-spacing t)
-;; 行末のスペースを強調表示．ただし，バッファローカル
-(setq-default show-trailing-whitespace t)
+(setq make-backup-files nil)              ;; Auto-savingの無効化
+(setq delete-auto-save-files t)           ;; 保存が完了した時にAuto-saveファイルを消す
+(setq-default line-spacing t)             ;; 行間を調節
+(setq-default show-trailing-whitespace t) ;; 行末のスペースを強調表示
 
 ;; 初期フレームの設定
 (setq default-frame-alist
@@ -42,6 +37,14 @@
              '(alpha . 80)
              '(left . 10))
        default-frame-alist))
+
+;; ウィンドウシステムの設定
+(if window-system
+    (progn
+      (tool-bar-mode nil)                  ; ツールバー非表示
+      (set-scroll-bar-mode nil)            ; スクロールバー非表示
+      (setq line-spacing 0.2)              ; 行間
+      (setq ns-pop-up-frames nil)))
 
 ;; Libraries
 ;; =========
