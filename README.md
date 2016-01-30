@@ -1,6 +1,11 @@
 # momoto / emacs.d
 
-Configuration files for Emacs
+## Install
+
+$ cd ~/.emacs.d/
+$ git clone git@github.com:momoto/emacs.d.git .
+
+## Configuration files for Emacs
 
 - [GNU Emacs - GNU Project - Free Software Foundation (FSF)](http://www.gnu.org/software/emacs/)
   - [Enhanced Ruby Mode](https://github.com/jacott/Enhanced-Ruby-Mode)
