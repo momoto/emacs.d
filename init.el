@@ -1,4 +1,4 @@
-;; (message "User home directory: %s" (getenv "HOME"))
+;; (Message "User home directory: %s" (getenv "HOME"))
 ;; (message "Emacs configuration: %s" default-directory)
 ;; (message "buffer-file-name: %s" buffer-file-name)
 (message "User: %s" user-login-name)
@@ -16,7 +16,11 @@
               indent-tabs-mode nil)    ;; インデントにスペースを使用する
 (setq-default truncate-lines 1)        ;; 行を画面端で折り返さない
 (setq visible-bell 1)                  ;; Visible Bell有効
-(menu-bar-mode 0)                      ;; メニューバー非表示
+(menu-bar-mode -1)                      ;; メニューバー非表示
+(setq-default transient-mark-mode t)   ;; リージョンをハイライト
+(show-paren-mode t)                    ;; 対応する括弧の強調
+(column-number-mode t)                 ;; 列番号を表示
+(line-number-mode t)                   ;; 行番号を表示
 
 (setq make-backup-files nil)              ;; Auto-savingの無効化
 (setq delete-auto-save-files t)           ;; 保存が完了した時にAuto-saveファイルを消す
@@ -26,11 +30,7 @@
 ;; 初期フレームの設定
 (setq default-frame-alist
       (append
-       (list '(foreground-color . "white")
-             '(background-color . "#000033")
-             '(border-color . "white")
-             '(mouse-color . "pink")
-             '(cursor-color . "#ffffcc")
+       (list
              '(width . 80)
              '(height . 40)
              '(top . 10)
@@ -39,12 +39,32 @@
        default-frame-alist))
 
 ;; ウィンドウシステムの設定
+
 (if window-system
     (progn
       (tool-bar-mode nil)                  ; ツールバー非表示
       (set-scroll-bar-mode nil)            ; スクロールバー非表示
       (setq line-spacing 0.2)              ; 行間
       (setq ns-pop-up-frames nil)))
+
+(set-foreground-color                                  "#eeeeee") ; 文字色
+(set-background-color                                  "#000033") ; 背景色
+(set-mouse-color                                       "red")
+(set-cursor-color                                      "#ffffcc") ; カーソル色
+(set-border-color                                      "pink")
+(set-face-background 'region                           "#222244") ; リージョン
+(set-face-foreground 'mode-line-inactive               "#333333") ; モードライン文字(非アクティブ)
+(set-face-background 'mode-line-inactive               "#CCCCCC") ; モードライン背景(非アクティブ)
+(set-face-foreground 'font-lock-comment-delimiter-face "#888888") ; コメントデリミタ
+(set-face-foreground 'font-lock-comment-face           "#888888") ; コメント
+(set-face-foreground 'font-lock-string-face            "#7FFF7F") ; 文字列
+(set-face-foreground 'font-lock-function-name-face     "#BF7FFF") ; 関数名
+(set-face-foreground 'font-lock-keyword-face           "#FF7F7F") ; キーワード
+(set-face-foreground 'font-lock-constant-face          "#FFBF7F") ; 定数(this, selfなども)
+(set-face-foreground 'font-lock-variable-name-face     "#7F7FFF") ; 変数
+(set-face-foreground 'font-lock-type-face              "#FFFF7F") ; クラス
+(set-face-foreground 'fringe                           "#666666") ; fringe(折り返し記号なでが出る部分)
+(set-face-background 'fringe                           "#282828") ; fringe
 
 ;; Libraries
 ;; =========
@@ -65,6 +85,9 @@
 
 (when (file-exists-p "lisp/syntax.el")
   (load "lisp/syntax"))
+
+
+(message "Welcome!")
 
 ;;;
 ;;; end of file
