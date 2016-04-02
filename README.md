@@ -4,9 +4,7 @@
 
 ```bash
 $ cd ~/.emacs.d/
-$ git clone git@github.com:momoto/emacs.d.git .
-$ git submodule init
-$ git submodule update
+$ git clone git@github.com:momoto/emacs.d.git . --recursive
 ```
 
 ## Configuration files for Emacs
