@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using SMOMOT-WIN-F1;
-using SMOMOT-WIN-F1.Controllers;
+using SMOMOTWINF1;
+using SMOMOTWINF1.Controllers;
 
 namespace SMOMOTWINF1.Tests.Controllers
 {
