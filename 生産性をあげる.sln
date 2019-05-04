@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1", "SMOMOT-WIN-F1\SMOMOT-WIN-F1.csproj", "{A7539B36-0261-408F-803F-4C4CC1CC8219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1.Tests", "SMOMOT-WIN-F1.Tests\SMOMOT-WIN-F1.Tests.csproj", "{03C2B4A3-6493-499F-814F-709E43982EDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7539B36-0261-408F-803F-4C4CC1CC8219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7539B36-0261-408F-803F-4C4CC1CC8219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7539B36-0261-408F-803F-4C4CC1CC8219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7539B36-0261-408F-803F-4C4CC1CC8219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C2B4A3-6493-499F-814F-709E43982EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C2B4A3-6493-499F-814F-709E43982EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C2B4A3-6493-499F-814F-709E43982EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C2B4A3-6493-499F-814F-709E43982EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
