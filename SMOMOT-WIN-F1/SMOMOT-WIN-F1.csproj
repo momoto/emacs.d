@@ -96,6 +96,9 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\OutputHelloWorld.ps1" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
