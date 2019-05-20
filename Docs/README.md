@@ -52,7 +52,8 @@ You are developing an application that includes a class named Order. The applica
 
 A. Queue<T>
 B. SortedList
-C. LinkedList<T> D. HashTable
+C. LinkedList<T>
+D. HashTable
 E. Array<T>
 
 Correct Answer: A Section: Volume A Explanation
@@ -68,10 +69,12 @@ Remove duplicate integers from the employeeIds array.
 Sort the array in order from the highest value to the lowest value.
 Remove the integer value stored in the employeeIdToRemove variable from the employeeIds array.
 You need to create a LINQ query to meet the requirements. Which code segment should you use?
-       
- A. Option A
+
+A. Option A
 B. Option B
-C. Option C D. Option D
+C. Option C
+D. Option D
+
 Correct Answer: C Section: Volume A Explanation
 Explanation/Reference:
 
