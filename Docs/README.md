@@ -6,6 +6,29 @@
 - https://id.b-ok.org/book/2734657/618923
 - https://www.microsoft.com/en-us/learning/community.aspx
 - http://aka.ms/learningpaths ← 見えない
+- 試験時間は 150 分
+
+## ToDo
+
+- C# のタイピングシステムは 3 つの異なる分類を含む： Value types, reference types, pointer types (pointer型を使うのは稀)
+- enum 型があるの知らなかった。。特定の value type を持てる。
+- 名前が示すとおり、参照型には実際の値への参照が含まれています。値型は直接値を含みます。
+- 型が格納される場所には heap と stack がある。reference type は heap に保存され、value へのアドレスは stack に保存される。lambda や boxing は例外。
+- stack にデータが格納する利点は、早い、小さい、ガベージコレクションに注意を払う必要がない、こと。
+- Value types をつかうべき基準：オブジェクトが小さい、オブジェクトがたくさんある、論理的に不変 (immutable)、であるとき。他の全ての状況では reference type が使われるべき。
+- C# の継承の書き方は `class Student : Person`, Not `class Student extends Person`.
+- generics は、型だけ違って処理の内容が同じ関数を実装するときに使う。 where句で制約できる。 書き方は `void my_func <MY_TYPE> (MY_TYPE i) where MY_TYPE: struct`
+- generics の where 句は struct, class, new(), <base CLASS_NAME>, <interface IF_NAME>, または特定の型。 `,` でつなげることもできる。
+- Boxing とは `string i = 42; object b = i;` のようにベースクラスの型へキャストすること。逆は Unboxing で、間違えると InvalidCastException が起きる。
+- ado ってなんだ？
+- tasks ってなんだ？
+- stream ってなんだ？
+- event log ってどうつかう？
+- performance counter ってどうつかう？メモリ500MBってどうやってわかる？
+- データ型 int32, int64, float, double を返還する例外はいつおきる？
+- LINQ ってなんだ？
+- List: hash, linked, sorted ってなんだ？
+- GAC global assembly cache ってなんだ？
 
 ## Skills measured
 
@@ -24,11 +47,11 @@
    5. Implement exception handling
 2. Create and Use Types
    1. Create types
-   2. Consume types
+   2. Consume types [!] Boxing ってなんだ？
    3. Enforce encapsulation
-   4. **Create and implement a class hierarchy**
+   4. **Create and implement a class hierarchy** [!]
    5. Find, execute, and create types at runtime by using reflection
-   6. Manage the object life cycle
+   6. Manage the object life cycle [!]
    7. **Manipulate strings**
 3. Debug Applications and Implement Security
    1. Validate application input
@@ -43,9 +66,7 @@
    4. Serialize and deserialize data
    5. Store data in and retrieve data from collections
 
-## ToDo
-
-Boxing ってなんだ？？？
+**成績が低かった領域**
 
 - **Create and implement a class hierarchy**
   Design and implement an interface; inherit from a base class; create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
@@ -57,6 +78,207 @@ Boxing ってなんだ？？？
 ---
 
 ## Focus on 最も成績の低かったスキル領域 (2019/04/13 Failed 642/700)
+
+### 2.1.4 Using generic types
+
+C# 2.0 で追加された新しい機能が generics です。generic type はすべての型のhard-coding の代わりに Type パラメーターをつかいます。
+
+generics の利用がみえる .NET Framework の１つのエリア は Nullables のサポートです。参照型は null の実際の値をもてますが、これは値を持ってないことを意味します。しかし、値の型は null の値を持てません。例えば、いくつかの boolean の値が true、false または unknown であることをどう表現しますか？正規の Boolean は true または false しか持てません。
+
+これが Nullables が .NET Framework に追加された理由です。Nullable は Nullable が値セットをもつかどうかの Boolean フラグでvalue type を覆います。
+
+Instead of creating a Nullable type for each possible value type, there is now only one implementation that uses a generic type parameter to make it more flexible. This way, generics can be used to promote code reuse.
+
+Normally, a value type would need to be boxed to be used in a nongeneric collection. By using generics, you can avoid the performance penalty for boxing and unboxing.
+
+**MORE INFO BOXING AND UNBOXING**
+
+For more information, see “Objective 2.2: Consume types” later in this chapter.
+
+The .NET Framework has several generic implementations of collection classes in the System.Collections.Generic namespace. Whenever possible, those generic collections should be used in favor of their nongeneric counterparts.
+
+.NET Framework はいくつかの collection classes の generic implementation をもちます。可能な限り、 generic collecitons の nongeneric な対応を支持して使われるべきです。
+
+C# has a lot of possibilities when using generics. They can be used on structs, classes, interfaces, methods, properties, and delegates. You can even specify multiple generic type parameters when necessary.
+
+C# は generics をつかうときに多くの possibilities を持っています。彼は structs, classes, interfaces, methods, properties, and delgates で使用できます。必要であれば、複数の generic type パラメーターを指定することさえできます。
+
+As you can see in the example of Nullable<T>, a generic type parameter can also be constrained. In the case of Nullable<T>, it wouldn’t make any sense if T could be a reference type. Reference types by their nature already have the option of being null.
+
+Nullable<T> の例からわかるように、generics type パラメーターもまた制約を受けます。 Nullable<T> のケースでは T が参照型になりうるのであれば意味がありません。参照型は既に null になりえます。
+
+C# lets you add a simple where clause that constrains a type parameter. In Table 2-2, you can see the different constraints you can use.
+
+C# は、type parameter を制約するシンプルな where 句をあなたに追加させます。次の表で各制約の違いがわかります。
+
+**TABLE 2-2 Possible constraints for a generic type parameter**
+
+| Constraint | Description |
+|:--|:--|
+| where T: struct | The type argument must be a value type (only Nullable is not allowed). 型引数は value type でなければならない。Nullable だけは許可されない |
+| where T : class | The type argument must be a reference type: for example, a class, interface, delegate, or array. 型引数は reference type でなければならない。class, interface, delegate, array 等。 |
+| where T : new() | The type must have a public default constructor. 型は public の default constructor を持たなければならない |
+| where T : <base class name> | The type argument must be or derive from the specified base class. 型は特定の base class から派生されていなければならない |
+| where T : <interface name> | The type argument must be or implement the specified interface. Multiple interface constraints can be specified. The constraining interface can also be generic. 型は特定の interface または実装でなければならない。複数の interface 制約を指定できる。制約 interface も generic でありえる。 |
+| where T : U | The type argument supplied for T must be or derive from the argument supplied for U. T型は U 型または派生でなければならない  |
+
+Objective 2.1: Create types
+
+When working with a reference type, the default value is null; with a value type such as int,
+it is 0. But what is the default value when working with a generic type parameter? In this case,
+you can use the special default(T) keyword. This gives you the default value for the specific
+type of T. Listing 2-15 shows how to use this.
+LISTING 2-15 Using default(T) with a generic type parameter
+public void MyGenericMethod<T>()
+{
+ T defaultValue = default(T);
+}
+Extending existing types
+C# offers several ways to extend existing types without having to modify the existing code. In
+this section, you look at two different ways: extension methods and overriding.
+Extension methods
+In .NET 4.0, a new capability was added called extension methods, which enable you to add
+new capabilities to an existing type. You don’t need to make any modifications to the existing
+type; just bring the extension method into scope and you can call it like a regular instance
+method.
+Extension methods need to be declared in a nongeneric, non-nested, static class. Listing
+2-16 shows the creation of an extension method.
+LISTING 2-16 Creating an extension method
+public class Product
+{
+ public decimal Price { get; set; }
+}
+public static class MyExtensions
+{
+ public static decimal Discount(this Product product)
+ {
+ return product.Price * .9M;
+ }
+}
+public class Calculator
+{
+ public decimal CalculateDiscount(Product p)
+ {
+ return p.Discount();
+ }
+}
+Notice that the Discount method has this Product as its first argument. The special this
+keyword makes this method an extension method.
+www.it-ebooks.info
+104 CHAPTER 2 Create and use types
+EXAM TIP
+Remember that the difference between a regular static method and an extension method
+is the special this keyword for the first argument.
+The nice thing is that an extension method cannot only be declared on a class or struct.
+It can also be declared on an interface (such as IEnumerable<T>). Normally, an interface
+wouldn’t have any implementation. With extension methods, however, you can add methods
+that will be available on every concrete implementation of the interface.
+Language Integrated Query (LINQ) is one of the best examples of how you can use this
+technique to enhance existing code. Instead of having to add all the LINQ operators to each
+and every class, they are created as extension methods on the base interfaces of each collection type. This way, all collections can suddenly use LINQ.
+MORE INFO LINQ
+For more information on LINQ, see Chapter 4, “Implement data access.”
+Overriding Methods
+Another way to extend an existing type is to use inheritance and overriding. When a method
+in a class is declared as virtual, you can override the method in a derived class. You can
+completely replace the existing functionality or you can add to the behavior of the base class.
+Listing 2-17 shows how to override a method in a derived class to change some functionality.
+LISTING 2-17 Overriding a virtual method
+class Base
+{
+ public virtual int MyMethod()
+ {
+ return 42;
+ }
+}
+class Derived : Base
+{
+ public override int MyMethod()
+ {
+ return base.MyMethod() * 2;
+ }
+}
+Now you can extend classes without modifying the original code. When designing your
+classes, it’s important to plan for extension points such as these. You can disable inheritance
+by using the sealed keyword on a class or a method. When used on a class, you can’t derive
+other classes from it. When used on a method, derived classes can’t override the method.
+Listing 2-18 shows how this works.
+www.it-ebooks.info
+Objective 2.1: Create types CHAPTER 2 105
+LISTING 2-18 Using the sealed keyword on a method
+class Base
+{
+    public virtual int MyMethod()
+    {
+        return 42;
+    }
+}
+class Derived : Base
+{
+    public sealed override int MyMethod()
+    {
+        return base.MyMethod() * 2;
+    }
+}
+class Derived2 : Derived
+{
+    // This line would give a compile error
+    // public override int MyMethod() { return 1;}
+}
+MORE INFO INHERITANCE AND OVERRIDING
+For more information on using inheritance, see “Objective 2.4: Create and implement a
+class hierarchy” later in this chapter.
+Thought experiment
+Creating a new web shop
+In this thought experiment, apply what you’ve learned about this objective. You can
+find answers to these questions in the “Answers” section at the end of this chapter.
+You are tasked with creating the basic types for a new web shop. As a customer, you
+can search through the existing product database and compare different items by
+reviewing specifications and reviews from other users. The system should keep track
+of popular products and make recommendations to the customer. Of course, the
+customer can then select the products he wants and place an order. There are also
+some business rules that you need to be aware of. A new customer is not allowed
+to place an order that exceeds $500. An order should be at least $10 to qualify for
+free shipping. More business rules will be added, but are not clear at the moment.
+Answer the following questions for your manager:
+1. Which basic types are you going to use to build your web shop?
+2. How can you make sure that your types contain both behavior and data?
+3. How can you improve the usability of your types?
+www.it-ebooks.info
+106 CHAPTER 2 Create and use types
+Objective summary
+■ Types in C# can be a value or a reference type.
+■ Generic types use a type parameter to make the code more flexible.
+■ Constructors, methods, properties, fields, and indexer properties can be used to create
+a type.
+■ Optional and named parameters can be used when creating and calling methods.
+■ Overloading methods enable a method to accept different parameters.
+■ Extension methods can be used to add new functionality to an existing type.
+■ Overriding enables you to redefine functionality from a base class in a derived class.
+Objective review
+Answer the following questions to test your knowledge of the information in this objective.
+You can find the answers to these questions and explanations of why each answer choice is
+correct or incorrect in the “Answers” section at the end of this chapter.
+1. You are creating a new collection type and you want to make sure the elements in it
+can be easily accessed. What should you add to the type?
+A. Constructor
+B. Indexer property
+C. Generic type parameter
+D. Static property
+2. You are creating a generic class that should work only with reference types. Which
+type constraint should you add?
+A. where T : class
+B. where T : struct
+C. where T : new()
+D. where T : IDisposable
+3. You pass a struct variable into a method as an argument. The method changes the
+variable; however, when the method returns, the variable has not changed. What
+happened?
+A. The variable was not initialized before it was passed in.
+B. A value type cannot be changed inside a method.
+C. Passing a value type makes a copy of the data. The original wasn’t changed.
+D. The method didn’t return the changes
+
 
 ## Create and implement a class hierarchy
 
@@ -91,11 +313,13 @@ In this case, the implementing class adds an extra set accessor. The advantage o
 
 Interfaces can also inherit from other interfaces. This way, you can have a chain of interfaces that each adds to the public signature of a type. A class that inherits from one of the derived interfaces has to implement all signatures in the whole hierarchy.
 
-インターフェースは他のインターフェースから継承することもできます。この方法で、型の public signature へ追加するインターフェースのチェインをもてます。
+インターフェースは他のインターフェースから継承することもできます。この方法で、型の public signature へ追加するインターフェースのチェインをもてます。derived インターフェースから継承したクラスはすべての階層のすべての signatures を実装しなければならない。
 
 You can also use generics when defining interfaces. For example, if you are implementing the repository pattern (a repository offers access to objects stored in a database or some other storage type), you can use a generic type parameter so you don’t have to create different interfaces for each entity that you want to store, as Listing 2-43 shows.
 
+interface を定義するとき generics もつかえる。例えば repository pattern (repository はDB等に蓄積されたオブジェクトへアクセス可能とさせる) を実装するとき、エンティティごとに異なる interface を作らなくてもいいように generic 型パラメーターをつかえる。
 
+P126
 
 LISTING 2-43 Creating an interface with a generic type parameter
 interface IRepository<T>
@@ -579,6 +803,41 @@ Manipulate strings by using the StringBuilder, StringWriter, and StringReader cl
 ## Query and manipulate data and objects by using LINQ
 
 Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
+
+
+---
+
+For文とlistを処理（最初の３問
+開発時に完全署名されないようにするには？
+COMオブジェクトを使いたい時に継承するインターフェースは何か？
+使用できるメモリが500MBのとき、なにを参照したらよいか？（performance counter, memory stream）
+最も早いのは？（concat, stringbuilder, operator ）
+例外が投げられないようにするには？（float,int）
+データ型のswitch文の結果の正誤は？
+Date time. Minvalue で返されるのは？
+イベントログを使うには？
+特定の例外を拾うには？
+親クラスの型で子クラスをインスタンス化するシナリオって？？
+DBから取得した結果セットを全部読むときのwhile条件は？
+異なるインターフェースで同じ名前のメソッドを呼ぶには？
+Linq for each as parallel
+正しいアクセス修飾子は？person クラス、employee クラス
+オーダーデータを処理するのに適切なデータ型は？（stack, queue）
+アセンブリを開発するときのVSの設定は？
+一部のアセンブリの権限がないときのデバッグ方法は？
+IOT 1秒間に処理された回数を数えるには？（パフォーマンスカウンター
+同じIDのリストを追加しようとしたときのエラーを防ぐ方法は？
+元の例外をロギングするには？throws 
+Async/await の正しい穴埋めは？
+.IsClass = true, .private = true みたいな書き方できるの？
+1台のwinserverに置くプログラムに含めるべき一意の属性は？version, name
+Webresponse をreadする関数は？
+バイナリシリアライズできるかどうか？
+Lastname は firstname の後にシリアライズされるか？
+String S in string.split(“;”); ?
+正しいメールアドレスを返す関数は？
+String.substring をつかって表示される結果は？
+Dowork(double o) を呼ぶためのシグネチャは？
 
 ---
 
