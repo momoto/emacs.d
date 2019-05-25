@@ -3,29 +3,73 @@
 - https://www.microsoft.com/en-us/learning/exam-70-483.aspx
 - http://aka.ms/learningpaths ← 見えない
 
-[[_TOC_]]
-
 ## Skills measured
 
 1. Manage Program Flow (25-30%), 1. プログラムフローの管理 (>80%)
 2. Create and Use Types (25-30%), 4. 型の作成と使用 (60%)
-   - **Manipulate strings** Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes; search strings; enumerate string methods; format strings; use string interpolation
-   - **Create and implement a class hierarchy** Design and implement an interface; inherit from a base class; create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
 3. Debug Applications and Implement Security (25-30%), 2. アプリケーションのセキュリティとデバッグ (60%)
 4. Implement Data Access (25-30%), 3. データアクセスの実装 (>40%)
-  - **Query and manipulate data and objects by using LINQ** Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
 
-## 最も成績の低かったスキル領域 (2019/04/13 Failed 642/700)
+## Contents
 
-- 文字列を操作する
-  - StringBuilder, StringWriter, および StringReader の各クラスによる文字列の操作、文字列の検索, String メソッドの列挙、文字列の書式設定
-- LINQ を使用し、データおよびオブジェクトの照会と操作を実行する
-  - 各種演算子（プロジェクション、結合、group, Take, Skip Aggregate) を使用したデータの照会
-  - メソッドベースの LINQ クエリの作成、クエリの包含構文によるデータの照会、匿名型によるデータの選択、クエリの強制適用、LINQ to XML によるデータ構造の読み取り、フィルター処理、作成、および変更
-- クラス階層を作成および実装する。
-  - インターフェースの設計と実装、基本クラスの継承、IComparable, IEnumerable, IDisaposable および IUnknown インターフェースに基づくクラスの作成と実装
+1. Manage Program Flow
+   1. Implement multithreading and asynchronous processing
+   2. Manage multithreading
+   3. Implement program flow
+   4. Create and implement events and callbacks
+   5. Implement exception handling
+2. Create and Use Types
+   1. Create types
+   2. Consume types
+   3. Enforce encapsulation
+   4. **Create and implement a class hierarchy**
+   5. Find, execute, and create types at runtime by using reflection
+   6. Manage the object life cycle
+   7. **Manipulate strings**
+3. Debug Applications and Implement Security
+   1. Validate application input
+   2. Perform symmetric and asymmetric encryption
+   3. Manage assemblies
+   4. Debug an application
+   5. Implement diagnostics in an application
+4. Implement Data Access
+   1. Perform I/O operations
+   2. Consume data
+   3. **Query and manipulate data and objects by using LINQ**
+   4. Serialize and deserialize data
+   5. Store data in and retrieve data from collections
+
+## Focus on 最も成績の低かったスキル領域 (2019/04/13 Failed 642/700)
+
+2. Create and Use Types
+   4. **Create and implement a class hierarchy**
+      Design and implement an interface; inherit from a base class; create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
+   7. **Manipulate strings**
+      Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes; search strings; enumerate string methods; format strings; use string interpolation
+4. Implement Data Access
+   3. **Query and manipulate data and objects by using LINQ**
+      Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
 
 ---
+
+## Create and implement a class hierarchy
+
+Inheritance is another pillar of object-oriented development. Inheritance is the process of letting one class derive from another class. Inheritance between a base and a derived class establishes an “is-a-kind-of” relationship. For example, a child is a human, and a SqlConnection is a DbConnection. This enables you to create hierarchies of objects that can be used to better model real-world scenarios. It also encourages code reuse. C# is a typical object-oriented language in that it offers all the support you need to create your own class hierarchies and to use them in the most efficient way. You will look at how using interfaces and base classes can help you create generic code that can work with multiple implementations, and you will look at how a base class can help with code reuse and some of the standard interfaces the .NET Framework offers.
+
+継承はオブジェクト指向開発におけるもう１つの柱です。継承は１つのクラスを別のクラスから派生させるプロセスです。
+
+## Manipulate strings
+
+Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes; search strings; enumerate string methods; format strings; use string interpolation
+
+## Query and manipulate data and objects by using LINQ
+
+Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
+
+
+---
+
+# Questions
 
 - Number: 70-483
 - Passing Score: 800
