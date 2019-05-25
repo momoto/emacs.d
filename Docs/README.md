@@ -1,6 +1,10 @@
 # 70-483 Programming in C#
 
 - https://www.microsoft.com/en-us/learning/exam-70-483.aspx
+- https://www.microsoft.com/ja-jp/learning/exam-70-483.aspx
+- https://id.b-ok.org/book/3649125/b070c
+- https://id.b-ok.org/book/2734657/618923
+- https://www.microsoft.com/en-us/learning/community.aspx
 - http://aka.ms/learningpaths ← 見えない
 
 ## Skills measured
@@ -39,24 +43,534 @@
    4. Serialize and deserialize data
    5. Store data in and retrieve data from collections
 
-## Focus on 最も成績の低かったスキル領域 (2019/04/13 Failed 642/700)
+## ToDo
 
-2. Create and Use Types
-   4. **Create and implement a class hierarchy**
-      Design and implement an interface; inherit from a base class; create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
-   7. **Manipulate strings**
-      Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes; search strings; enumerate string methods; format strings; use string interpolation
-4. Implement Data Access
-   3. **Query and manipulate data and objects by using LINQ**
-      Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
+Boxing ってなんだ？？？
+
+- **Create and implement a class hierarchy**
+  Design and implement an interface; inherit from a base class; create and implement classes based on the IComparable, IEnumerable, IDisposable, and IUnknown interfaces
+- **Manipulate strings**
+  Manipulate strings by using the StringBuilder, StringWriter, and StringReader classes; search strings; enumerate string methods; format strings; use string interpolation
+- **Query and manipulate data and objects by using LINQ**
+  Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
 
 ---
+
+## Focus on 最も成績の低かったスキル領域 (2019/04/13 Failed 642/700)
 
 ## Create and implement a class hierarchy
 
 Inheritance is another pillar of object-oriented development. Inheritance is the process of letting one class derive from another class. Inheritance between a base and a derived class establishes an “is-a-kind-of” relationship. For example, a child is a human, and a SqlConnection is a DbConnection. This enables you to create hierarchies of objects that can be used to better model real-world scenarios. It also encourages code reuse. C# is a typical object-oriented language in that it offers all the support you need to create your own class hierarchies and to use them in the most efficient way. You will look at how using interfaces and base classes can help you create generic code that can work with multiple implementations, and you will look at how a base class can help with code reuse and some of the standard interfaces the .NET Framework offers.
 
-継承はオブジェクト指向開発におけるもう１つの柱です。継承は１つのクラスを別のクラスから派生させるプロセスです。
+継承はオブジェクト指向開発におけるもう１つの柱です。継承は１つのクラスを別のクラスから派生させるプロセスです。base と derived クラスの inheritance は「is-a-kind-of」関係を確立します。例えば、child は human、SqlConnection は DbConnection のように。これはよりよい現実世界のモデルとして使用できるオブジェクトの階層化を可能にさせます。さらにこれは、コードの再利用を助長させます。 C# は、クラス階層の作成と効率的な利用に必要なすべてを提供できる典型的なオブジェクト指向言語です。インターフェースと base クラスをどのように使用すると、複数の実装と機能できるジェネリックコードの作成を助けられるかを説明します。そして、base クラスがどのようにコード再利用と標準インターフェースを役立てられるかも説明する。
+
+This objective covers how to:
+- Design and implement interfaces.
+- Create and use base classes.
+- Use some of the standard .NET Framework interfaces.
+
+ここでは、インタフェースの設計と実装、base クラスの作成と利用、 .NET Framework の標準インタフェースの利用、を扱います。
+
+**Designing and implementing interfaces**
+
+Interfaces are a key concept inside C#. An interface contains the public signature of methods, properties, events, and indexers. A type (both a class and a struct) can implement an interface.
+
+インターフェースはC#の内部のキーコンセプトです。インターフェースはメソッドのpublic signature、プロパティ、イベント、indexersを含む。クラスと構造の両方のタイプはインターフェースを実装できる。
+
+The convention in C# is to let the name of an interface start with a capital I. This helps you when using IntelliSense to see if a type is an interface. As you can see in the example, no access modifiers are mentioned for the elements of the interface because all interface members are public by default. It’s not possible to implement an interface and change the access modifier to anything other than public.
+
+C# の習慣はインタフェースの名前を大文字Iではじめます。これはIntelliSense をつかうとき、型がインターフェースかどうか、わかるのに役立ちます。例でみたように、全てのインターフェースメンバーは既定で public であるため、インターフェースの要素の access modifiers に言及してません。これはインターフェースの実装とアクセス修飾子を public 以外に変更することが不可能です。ビルドエラー「CS0737	'ExampleImplementation' は、インターフェイス メンバー 'IExample.Value' を実装していません。'ExampleImplementation.Value' は public ではないため、インターフェイス メンバーを実装できません。	」になる。
+
+One thing to note is that an interface might define a property with only a get accessor while the implementing type also has a set accessor.
+
+ひとつ、 set アクセサをもつ型を実装するとき、インターフェースは属性を１つの get アクセサで定義することがあります。
+
+In this case, the implementing class adds an extra set accessor. The advantage of using this pattern is that if a user accesses your class through its interface, it will see only the get accessor. Direct users of the class will see both the get and the set accessor.
+
+このケースでは、実装クラスは特別に set アクセサを追加しています。このパターを使用する優位性はユーザーがインターフェースを通じてクラスへアクセスするとき、 get アクセサだけが見えることです。クラスを直接使用するユーザーは get と set の両方が見えます。
+
+Interfaces can also inherit from other interfaces. This way, you can have a chain of interfaces that each adds to the public signature of a type. A class that inherits from one of the derived interfaces has to implement all signatures in the whole hierarchy.
+
+インターフェースは他のインターフェースから継承することもできます。この方法で、型の public signature へ追加するインターフェースのチェインをもてます。
+
+You can also use generics when defining interfaces. For example, if you are implementing the repository pattern (a repository offers access to objects stored in a database or some other storage type), you can use a generic type parameter so you don’t have to create different interfaces for each entity that you want to store, as Listing 2-43 shows.
+
+
+
+LISTING 2-43 Creating an interface with a generic type parameter
+interface IRepository<T>
+{
+ T FindById(int id);
+ IEnumerable<T> All();
+}
+Now you can create concrete implementations of your Repository<T> for different classes.
+For example, you can have an IRepository<Product> and an IRepository<Order>. Generic
+interfaces can have multiple type parameters and type constraints.
+Using interfaces
+Because an interface has no implementation, you can’t instantiate an interface directly. You
+can instantiate only a concrete type that implements an interface, as Listing 2-44 shows.
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 127
+LISTING 2-44 Instantiating a concrete type that implements an interface
+interface IAnimal
+{
+ void Move();
+}
+class Dog : IAnimal
+{
+ public void Move() {}
+ public void Bark() {}
+}
+IAnimal animal = new Dog();
+Your code now holds a reference to some implementation of the interface IAnimal. Although you know that it actually points to a Dog, you can’t call the method Bark on it. If you
+want to go from the interface IAnimal to the type Dog, you will have to cast it.
+MORE INFO CASTING AND CONVERTING
+For more information on casting an interface to another type, see “Objective 2.2: Consume
+types” later in this chapter.
+Interfaces can also be used as parameters in a method. This way you can create generic
+code that can work against all kinds of different implementations:
+void MoveAnimimal(IAnimal animal)
+{
+ animal.Move();
+}
+One of the important concepts of object-oriented development is programming against
+a contract, not an implementation. The interface guarantees you that certain functionality is
+available (the contract). You shouldn’t care how this is implemented, only that it works. This
+helps with writing code that’s loosely coupled and can be better maintained.
+NOTE NO MULTIPLE INHERITANCE
+Some languages such as C++ offer the concept of multiple inheritance. This means that a
+single class can have multiple base classes. This way, a Bat can be both a Mammal (which
+inherits from Animal) and a DrawableObject. Multiple inheritance is not supported in C#.
+The creators of C# decided against implementing multiple inheritance because of the associated difficulties it can have. When using multiple inheritance, you can get conflicts when
+both base classes have a method with the same signature. C# does offer multiple interface
+inheritance with the option of explicitly implementing an interface to separate the different implementations. Multiple class inheritance is not supported.
+www.it-ebooks.info
+128 CHAPTER 2 Create and use types
+Creating and using base classes
+An interface defines only the public signature of a type. Deriving from an interface doesn’t inherit any implementation code. The derived type is completely free in how to implement the
+interface. When you do want to inherit implementation code, you can inherit from another
+class. Listing 2-45 shows how to create a base class.
+LISTING 2-45 Creating a base class
+interface IEntity
+{
+ int Id { get; }
+}
+class Repository<T>
+ where T : IEntity
+{
+ protected IEnumerable<T> _elements;
+ public Repository(IEnumerable<T> elements)
+ {
+ _elements = elements;
+ }
+ public T FindById(int id)
+ {
+ return _elements.SingleOrDefault(e => e.Id == id);
+ }
+}
+The Repository base class offers a method for finding entities by ID. This code is generic
+and can be used by all entities. What if you want to add a specific query that would filter
+orders on date and amount? That wouldn’t be something that applied to all entities; only to
+the order entity. Using inheritance can help you reuse your code while adding some extra
+behavior. Listing 2-46 shows how to inherit from a class.
+LISTING 2-46 Inheriting from a base class
+class Order : IEntity
+{
+    public int Id { get; }
+ // Other implementation details omitted
+ // …
+}
+class OrderRepository : Repository<Order>
+{
+ public OrderRepository(IEnumerable<Order> orders)
+ : base(orders) { }
+ public IEnumerable<Order> FilterOrdersOnAmount(decimal amount)
+ {
+ List<Order> result = null;
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 129
+ // Some filtering code
+ return result;
+ }
+}
+The OrderRepository now has both a method for finding an order by ID and a specific
+method for filtering orders on their amount. You can use inheritance in a similar manner to
+add members to an existing type. As you can see, you can use the base keyword to call the
+constructor of the base class. The base keyword can also be used when you want to call methods or other members on a base class.
+NOTE CHILD AND PARENT OR BASE AND DERIVED
+When talking about inheritance, the terms parent and child classes are often used. But is
+that the correct terminology when thinking about inheritance? For example, a Dog is a
+kind of Animal. This can be modeled by using an inheritance relation. However, would you
+say that a Dog is a Child of an Animal? A Child is not a kind of Parent. In languages that
+support multiple inheritance things get even messier. Instead of using Parent and Child
+when defining an inheritance relation, you can better use the terms base and derived class
+to avoid any confusion with inheritance in the real world.
+Changing behavior
+When building a class hierarchy, you sometimes want to replace or extend the behavior of a base
+class. Assume that you want to add some logging capabilities to the repository you created. You
+don’t want to rewrite all filtering code; instead you just want to add some extra behavior.
+This is where the virtual and override keywords come into play. Marking a method virtual
+allows derived classes to override the method. The derived class can choose to completely
+replace or to extend the behavior of the base class. Listing 2-47 shows how to override a
+method to extend the base class.
+LISTING 2-47 Overriding a virtual method
+class Base
+{
+ protected virtual void Execute()
+ {}
+}
+class Derived : Base
+{
+ protected override void Execute()
+ {
+ Log(“Before executing”);
+ base.Execute();
+ Log(“After executing”);
+ }
+ private void Log(string message) { /* some logging code */ }
+}
+www.it-ebooks.info
+130 CHAPTER 2 Create and use types
+By marking the method in the base class as virtual, the derived class can override it. By
+prefixing a method name with base, a derived class can execute the method on the base class.
+By skipping the call to base, the derived class completely replaces the functionality.
+If a base class doesn’t declare a method as virtual, a derived class can’t override the
+method. It can, however, use the new keyword, which explicitly hides the member from a base
+class (this is different from using the new keyword to create a new instance of an object). This
+can cause some tricky situations, as Listing 2-48 shows.
+LISTING 2-48 Hiding a method with the new keyword
+class Base
+{
+ public void Execute() { Console.WriteLine(“Base.Execute”); }
+}
+class Derived : Base
+{
+ public new void Execute() { Console.WriteLine(“Derived.Execute”); }
+}
+class Program
+{
+ static void Main(string[] args)
+ {
+ Base b = new Base();
+ b.Execute();
+ b = new Derived();
+ b.Execute();
+ }
+}
+Running this code will output Base.Execute twice. If you change the base execute method
+to be virtual and the derived class to override instead of hide the Execute method, the code
+will display Base.Execute and Derived.Execute. You should try to avoid hiding methods with
+the new keyword.
+Abstract and sealed base classes
+If you don’t want to allow a base class to be instantiated, you can declare it as an abstract
+class. An abstract class can have implementation code for its members, but it’s not required.
+Because the class is abstract, you can’t use the new operator on it to create a new instance.
+Listing 2-49 shows how to declare an abstract class.
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 131
+LISTING 2-49 Creating an abstract class
+abstract class Base
+{
+ public virtual void MethodWithImplementation() {/*Method with implementation*/}
+ public abstract void AbstractMethod();
+}
+class Derived : Base
+{
+ public override void AbstractMethod() { }
+}
+As you can see, an abstract class can have both fully implemented members and abstract
+members. A concrete derived type is required to implement all abstract members (just as
+with an interface). Abstract classes can be a nice way to share both an interface and some
+implementation details, especially when only derived types should be instantiable.
+Listing 2-49 uses the override keyword to implement the abstract method that’s defined
+in the base class. It can also be used on abstract or virtual methods, properties, indexers, and
+events to extend or modify the implementation.
+The opposite of an abstract class is a sealed class, which cannot be derived from. As such,
+it can’t be marked as abstract, and all members should have an implementation. Structs are
+implicitly sealed in C#. It’s never possible to inherit from a struct. Marking a class as sealed is
+a good practice. If you don’t do this, others can start inheriting from your class without you
+having thought about this. If inheritance is necessary, you can remove the sealed keyword
+and think about the implications.
+EXAM TIP
+Make sure that you know the difference between an interface and an abstract class. An
+interface has no implementation code. An abstract class can choose to implement methods
+or leave it to the derived class.
+Liskov substitution principle
+Inheritance is a powerful technique, but it should be used with caution. As already mentioned, inheritance should be used only when you are dealing with a “is-a-kind-of” relationship. The Liskov substitution principle states that a subclass should be usable in each place you
+can use one of the base classes. They shouldn’t suddenly change behavior that users would
+depend on.
+It’s easy to violate this principle. Consider the code in Listing 2-50.
+www.it-ebooks.info
+132 CHAPTER 2 Create and use types
+LISTING 2-50 A Rectangle class with an Area calculation
+class Rectangle
+{
+ public Rectangle(int width, int height)
+ {
+ Width = width;
+ Height = height;
+ }
+ public int Height { get; set; }
+ public int Width { get; set; }
+ public int Area
+ {
+ get
+ {
+ return Height * Width;
+ }
+ }
+}
+When looking at this Rectangle class, would you say that a Square is a kind of Rectangle?
+In mathematics, this would be true. We know that a square is a special type of rectangle. You
+can model this using an inheritance relation, as shown in Listing 2-51.
+LISTING 2-51 A Square class that inherits from Rectangle
+class Square : Rectangle
+{
+ public override int Width
+ {
+ get
+ {
+ return base.Width;
+ }
+ set
+ {
+ base.Width = value;
+ base.Height= value;
+ }
+ }
+ public override int Height
+ {
+ get
+ {
+ return base.Height;
+ }
+ set
+ {
+ base.Height = value;
+ base.Width = value;
+ }
+ }
+}
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 133
+Because you know that you are dealing with a square, you help the user of the class by
+modifying both the Width and Height properties together. This way, the rectangle will always
+be a square.
+Suppose you want to use the class as shown in Listing 2-52.
+LISTING 2-52 Using the Square class
+Rectangle rectangle = new Square();
+rectangle.Width = 10;
+rectangle.Height = 5;
+Console.WriteLine(rectangle.Area);
+This code will output 25. The user thinks he’s dealing with a Rectangle with a calculated
+Area, but because the Rectangle is pointing to a Square, only the latest value of Height is
+stored.
+This is a typical example of violating the Liskov substitution principle. The Square class cannot be used in all places where you would normally use a Rectangle.
+Implementing standard .NET Framework interfaces
+The .NET Framework has a few standard interfaces that can you can use on your own types.
+When implementing those interfaces, your classes can be used in the infrastructure that the
+.NET Framework offers.
+IComparable
+The IComparable interface features a single method, as shown in Listing 2-53.
+LISTING 2-53 IComparable interface
+public interface IComparable
+{
+ int CompareTo(object obj);
+}
+This interface is used to sort elements. The CompareTo method returns an int value that
+shows how two elements are related. Table 2-5 shows the possible values the CompareTo
+method returns.
+TABLE 2-5 Return values of CompareTo
+Value Meaning
+Less than zero The current instance precedes the object specified by the CompareTo method in the
+sort order.
+Zero This current instance occurs in the same position in the sort order as the object specified by the CompareTo method.
+Greater than zero This current instance follows the object specified by the CompareTo method in the
+sort order.
+www.it-ebooks.info
+134 CHAPTER 2 Create and use types
+For example, if you are creating an Order class that has a DateTime Created property that
+you want to sort on, you can implement IComparable on the Order class and compare the
+Created dates of both orders. Listing 2-54 shows how to do this.
+LISTING 2-54 Implementing the IComparable interface
+class Order : IComparable
+{
+ public DateTime Created { get; set; }
+ public int CompareTo(object obj)
+ {
+ if (obj == null) return 1;
+ Order o = obj as Order;
+ if (o == null)
+ {
+ throw new ArgumentException(“Object is not an Order”);
+ }
+ return this.Created.CompareTo(o.Created);
+ }
+}
+List<Order> orders = new List<Order>
+{
+ new Order { Created = new DateTime(2012, 12, 1 )},
+ new Order { Created = new DateTime(2012, 1, 6 )},
+ new Order { Created = new DateTime(2012, 7, 8 )},
+ new Order { Created = new DateTime(2012, 2, 20 )},
+};
+orders.Sort();
+The call to orders.Sort() calls the CompareTo method to sort the items. After sorting, the
+list contains the ordered Orders.
+IComparable also has a generic version: IComparable<T>. Especially when dealing with
+methods from the .NET Framework, it’s a good idea to implement both IComparable and
+IComparable<T>. Of course, you can share some code between those two implementations.
+IEnumerable
+The IEnumerable and IEnumerator interface in .NET helps you to implement the iterator pattern,
+which enables you to access all elements in a collection without caring about how it’s exactly
+implemented. You can find these interfaces in the System.Collection and System.Collections.
+Generic namespaces. When using the iterator pattern, you can just as easily iterate over the
+elements in an array, a list, or a custom collection. It is heavily used in LINQ, which can access all
+kinds of collections in a generic way without actually caring about the type of collection.
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 135
+The IEnumerable interface exposes a GetEnumerator method that returns an enumerator.
+The enumerator has a MoveNext method that returns the next item in the collection.
+The foreach statement in C# is some nice syntactic sugar that hides from you that you are
+using the GetEnumerator and MoveNext methods. Listing 2-55 shows how to iterate over a
+collection without using foreach.
+LISTING 2-55 Syntactic sugar of the foreach statement
+List<int> numbers = new List<int> { 1, 2, 3, 5, 7, 9 };
+using (List<int>.Enumerator enumerator = numbers.GetEnumerator())
+{
+ while (enumerator.MoveNext()) Console.WriteLine(enumerator.Current);
+}
+The GetEnumerator function on an IEnumerable returns an IEnumerator. You can think of
+this in the way it’s used on a database: IEnumerable<T> is your table and IEnumerator is a cursor that keeps track of where you are in the table. It can only move to the next row. You can
+have multiple database cursors around that all keep track of their own state.
+Before C# 2 implementing IEnumerable on your own types was quite a hassle. You need to
+keep track of the current state and implement other functionality such as checking whether
+the collection was modified while you were enumerating over it. C# 2 made this a lot easier,
+as Listing 2-56 shows.
+LISTING 2-56 Implementing IEnumerable<T> on a custom type
+class Person
+{
+ public Person(string firstName, string lastName)
+ {
+ FirstName = firstName;
+ LastName = lastName;
+ }
+ public string FirstName { get; set; }
+ public string LastName { get; set; }
+ public override string ToString()
+ {
+ return FirstName + “ “ + LastName;
+ }
+}
+class People : IEnumerable<Person>
+{
+ public People(Person[] people)
+ {
+ this.people = people;
+ }
+ Person[] people;
+www.it-ebooks.info
+136 CHAPTER 2 Create and use types
+ public IEnumerator<Person> GetEnumerator()
+ {
+ for (int index = 0; index < people.Length; index++)
+ {
+ yield return people[index];
+ }
+ }
+ IEnumerator IEnumerable.GetEnumerator()
+ {
+ return GetEnumerator();
+ }
+}
+Notice the yield return in the GetEnumerator function. Yield is a special keyword that can
+be used only in the context of iterators. It instructs the compiler to convert this regular code
+to a state machine. The generated code keeps track of where you are in the collection and it
+implements methods such as MoveNext and Current.
+Because creating iterators is so easy now, it has suddenly become a feature that you can
+use in your own code quite easily. Whenever you do a lot of manual loops through the same
+data structure, think about the iterator pattern and how it can help you create way nicer code.
+IDisposable
+Another useful interface in the .NET Framework is IDisposable. This interface is used to
+facilitate working with external, unmanaged resources. As Objective 2.6 discusses, C# is a
+managed language that uses a garbage collector to clean up memory. However, you will still
+access external, unmanaged resources like database connections or file handles. This is where
+IDisposable comes into play. Listing 2-57 shows the definition of the IDisposable interface.
+LISTING 2-57 The IDisposable interface
+public interface IDisposable
+{
+ void Dispose();
+}
+The only method the IDisposable interface has is Dispose(). This method is used to free any
+unmanaged resources.
+MORE INFO IMPLEMENTING IDISPOSABLE
+For more information implementing IDisposable, see “Objective 2.6: Manage the object life
+cycle” later in this chapter.
+www.it-ebooks.info
+Objective 2.4: Create and implement a class hierarchy CHAPTER 2 137
+IUnknown
+Before .NET existed, the first generation of the Windows API was based on a library of functions contained in a dynamic-link library (DLL). Later generations collected these functions
+into a Component Object Model (COM) interface. The .NET Framework provides classes that
+wrap much of these APIs in a managed version so that in normal life you almost never touch
+any COM components directly.
+Normally, you just add a reference to a COM object and the compiler generates the necessary wrapper classes called COM Interop classes. If this fails for some reason, you have to
+create the wrapper class; this is where the IUnknown interface is used.
+MORE INFO IMPLEMENTING IUNKNOWN
+For more information about implementing IUnknown, see http://msdn.microsoft.com/enus/library/aa645712(v=vs.71).aspx.
+Thought experiment
+Optimizing your code
+In this thought experiment, apply what you’ve learned about this objective. You can
+find answers to these questions in the “Answers” section at the end of this chapter.
+You are working on a brand-new web application for a real estate agent. The agent
+wants to display his property on a website and ensure that users can easily search
+for it. For example, a user will be able to filter the results on location, size, property
+type, and price. You need to create the infrastructure that uses all the selected criteria to filter the list of available houses.
+You want to see whether you can use some of the standard interfaces from the .NET
+Framework to implement your infrastructure.
+1. Why does the .NET Framework offer some interfaces without any implementation? Wouldn’t it be easier if the .NET Framework used abstract base classes?
+2. Would you use interface or class inheritance to create your search criteria?
+3. Which of the following interfaces would you use?
+■ IComparable
+■ IEnumerable
+■ IDisposable
+■ IUnknown
+www.it-ebooks.info
+138 CHAPTER 2 Create and use types
+Objective summary
+■ Inheritance is the process in which a class is derived from another class or from an
+interface.
+■ An interface specifies the public elements that a type must implement.
+■ A class can implement multiple interfaces.
+■ A base class can mark methods as virtual; a derived class can then override those
+methods to add or replace behavior.
+■ A class can be marked as abstract so it can’t be instantiated and can function only as a
+base class.
+■ A class can be marked as sealed so it can’t be inherited.
+■ The .NET Framework offers default interfaces such as IComparable, IEnumerable, IDisposable and IUnknown.
+Objective review
+Answer the following questions to test your knowledge of the information in this objective.
+You can find the answers to these questions and explanations of why each answer choice is
+correct or incorrect in the “Answers” section at the end of this chapter.
+1. You want to create a hierarchy of types because you have some implementation code
+you want to share between all types. You also have some method signatures you want
+to share. What should you use?
+A. An interface
+B. A class with virtual methods
+C. An abstract class
+D. A sealed class
+2. You want to create a type that can be easily sorted. Which interface should you implement?
+A. IEnumerable
+B. IComparable
+C. IDisposable
+D. IUnknown
+3. You want to inherit from an existing class and add some behavior to a method. Which
+steps do you have to take? (Choose all that apply.)
+A. Use the abstract keyword on the base type.
+B. Use the virtual keyword on the base method.
+C. Use the new keyword on the derived method.
+D. Use the override keyword on the derived method. 
+
+
 
 ## Manipulate strings
 
@@ -65,7 +579,6 @@ Manipulate strings by using the StringBuilder, StringWriter, and StringReader cl
 ## Query and manipulate data and objects by using LINQ
 
 Query data by using operators, including projection, join, group, take, skip, aggregate; create methodbased LINQ queries; query data by using query comprehension syntax; select data by using anonymous types; force execution of a query; read, filter, create, and modify data structures by using LINQ to XML
-
 
 ---
 
