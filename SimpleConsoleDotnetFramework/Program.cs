@@ -12,6 +12,24 @@ namespace SimpleConsoleDotnetFramework
         {
             ExampleImplementation<string> i = new ExampleImplementation<string>();
             i.readOnlyValue =  i.GetResult(string.Concat("To box or not box", 42, true));
+
+            var numbers = Enumerable.Range(0, 60);
+            var parallelResult = numbers.AsParallel().Where(x => x % 2 == 0).ToArray();
+
+            // Lambda
+            Func<int, int> myDelegate = delegate (int x) { return x * 2; };
+            Console.WriteLine(myDelegate(21)); // Displays 42
+
+            // Anonymous
+            var person = new { FirstName = "John", LastName = "Doe" };
+            Console.WriteLine(person.GetType().Name); // Displays “<>f__AnonymousType0`2”
+
+            int[] data = { 1, 2, 5, 8, 11 };
+            var result = from d in data
+                         select d;
+            Console.WriteLine(string.Join(" ", result)); // Displays 1, 2, 5, 8, 11
+
+
             Console.ReadLine();
         }
     }
