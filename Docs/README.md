@@ -20,12 +20,19 @@
 - Value types をつかうべき基準：オブジェクトが小さい、オブジェクトがたくさんある、論理的に不変 (immutable)、であるとき。他の全ての状況では reference type が使われるべき。
 - 継承したクラスに（実装は異なるかもしれないが）シグネチャが同じメソッド／プロパティがあることを保証するには、仮想メンバ／抽象クラス／インタフェースという3通りの方法がある。
   - virtual -> override: 既定の実装を与える
-  - abstract -> override: 既定の実装を与えない
+  - abstract -> override: 既定の実装を与えない。抽象メソッドを持つ抽象クラスは、インスタンスを生成することができない。
   - interface: 既定の実装を与えない
 - C# の継承の書き方は `class Student : Person`, Not `class Student extends Person`.
 - generics は、型だけ違って処理の内容が同じ関数を実装するときに使う。 where句で制約できる。 書き方は `void my_func <MY_TYPE> (MY_TYPE i) where MY_TYPE: struct`
 - generics の where 句は struct, class, new(), <base CLASS_NAME>, <interface IF_NAME>, または特定の型。 `,` でつなげることもできる。
 - Boxing とは `string i = 42; object b = i;` のようにベースクラスの型へキャストすること。逆は Unboxing で、間違えると InvalidCastException が起きる。
+  - IEnumerable LINQ と foreach でつかう
+  - IComparable ソートの汎用化
+  - IDisposable `using` 句でつかう。Dispose メソッドでリソース破棄を保証
+  - IQueryable クエリ可能なデータソースへリクエスト可能にする
+  - IUnknown
+  - IList, ICollection 変更可能なコレクション
+  - IDictionary コレクションのルックアップ
 - ado ってなんだ？
 - tasks ってなんだ？
 - stream ってなんだ？
@@ -233,10 +240,33 @@ interface.
 
 #### Objective 4.3: Query and manipulate data and objects by using LINQ. 291
 
-
+- LINQ (Language Integrated Query) とは複数のデータソースに対してクエリを統一的に書ける方法。
+- LINQ クエリを処理するときの重要な言語機能は、暗黙の型指定、オブジェクトの初期化構文、ラムダ、拡張メソッド、そして匿名型です。
+- You can use LINQ with a method-based syntax and the query syntax.
+- メソッドベースの構文とクエリ構文がつかえる。
+- LINQ queries are deferred-execution, which means that the query executes when it is first iterated.
+- You can use LINQ to XML to query, create, and update XML.
 
 #### Objective 4.4: Serialize and deserialize data
+
+- Serialization is the process of transforming an object to a flat file or a series of bytes.
+- Deserialization takes a series of bytes or a flat file and transforms it into an object.
+- XML serialization can be done by using the XmlSerializer.
+- You can use special attributes to configure the XmlSerializer.
+- Binary serialization can be done by using the BinaryFormatter class.
+- WCF uses another type of serialization that is performed by the DataContractSerializer.
+- JSON is a compact text format that can be created by using the DataContractJsonSerializer.
+
 #### Objective 4.5: Store data in and retrieve data from collections
+
+- The .NET Framework offers both generic and nongeneric collections. When possible, you should use the generic version.
+- Array is the most basic type to store a number of items. It has a fixed size.
+- List is a collection that can grow when needed. It’s the most-used collection.
+- Dictionary stores and accesses items using key/value pairs.
+- HashSet stores unique items and offers set operations that can be used on them.
+- A Queue is a first-in, first-out (FIFO) collection.
+- A Stack is a first-in, last-out (FILO) collection.
+- You can create a custom collection by inheriting from a collection class or inheriting from one of the collection interfaces.
 
 ---
 
@@ -408,10 +438,83 @@ C. XmlWriter
 D. FileStream
 
 #### Objective 4.3: Query and manipulate data and objects by using LINQ. 291
+
+1. You have a list of dates. You want to filter the dates to the current year and then select the highest date. Which query do you use?
+
+A. DateTime result = dates.Where(d => d == DateTime.Now).OrderBy(d => d).First();
+B. DateTime result = dates.Where(d => d.Year == DateTime.Now.Year). OrderByDescending(d => d).FirstOrDefault();
+C. DateTime result = dates.Where(d => d.Year == DateTime.Now.Year). OrderByDescending(d => d).First();
+D. DateTime result = dates.Where(d => d.Year == DateTime.Now.Year). OrderByDescending(d => d).Single();
+
+2. You are trying to use a LINQ query, but you are getting a compile error that the Where method cannot be found. What should you do? (Choose all that apply.)
+
+A. Add a using System.Linq statement.
+B. Check that you are using a type that implements IEnumerable.
+C. Change your query from query to method syntax.
+D. Change the type of your query to var.
+
+3. You are using the following LINQ to Entities query:
+
+```
+var query = from p in myContext.Products
+            where p.Price < 50
+            select p;
+int numberOfItems = query.Count();
+var products = query.ToList();
+```
+
+You are suffering performance problems. How can you improve your query? (Choose all that apply.)
+
+A. Avoid hitting the database multiple times.
+B. Don’t execute ToList() on the query.
+C. Use paging.
+D. Change the query to method syntax.
+
 #### Objective 4.4: Serialize and deserialize data
+
+1. You need to store a large amount of data, and you want to do this in the most optimal way. Which serializer should you use?
+
+A. XmlSerializer
+B. BinaryFormatter
+C. DataContractSerializer
+D. DataContractJsonSerializer
+
+2. You are serializing some sensitive data to a binary format. What should you use? (Choose all that apply.)
+
+A. XmlSerializer
+B. ISerializable
+C. DataContractSerializer
+D. BinaryFormatter
+
+3. You want to serialize some data to XML, and you need to make sure that a certain property is not serialized. Which attribute should you use?
+
+A. XmlElement
+B. XmlAttribute
+C. XmlIgnore
+D. NonSerialized
+
 #### Objective 4.5: Store data in and retrieve data from collections
 
+1. You want to store a group of orders and make sure that a user can easily select an order by its order number. Which collection do you use?
 
+A. List<Order>
+B. Dictionary<int,Order>
+C. HashSet<Order>
+D. Queue<Order>
+
+2. You are using a queue and you want to add a new item. Which method do you use?
+
+A. Push
+B. Add
+C. Dequeue
+D. Enqueue
+
+3. You are working with a large group of family name objects. You need to remove all duplicates and then group them by last name. Which collections should you use? (Choose all that apply.)
+
+A. List<T>
+B. Stack<T>
+C. Dictionary<string,T>
+D. T[]
 
 
 

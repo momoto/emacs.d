@@ -29,6 +29,8 @@ namespace SimpleConsoleDotnetFramework
                          select d;
             Console.WriteLine(string.Join(" ", result)); // Displays 1, 2, 5, 8, 11
 
+            DateTime[] dates = { System.DateTime.Now };
+            DateTime filtered = dates.Where(d => d.Year == DateTime.Now.Year).OrderByDescending(d => d).FirstOrDefault();
 
             Console.ReadLine();
         }
