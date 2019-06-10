@@ -7,7 +7,7 @@ namespace smomot_s0_net_framework
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
         }
     }
 }
