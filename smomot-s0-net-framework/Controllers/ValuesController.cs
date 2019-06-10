@@ -12,6 +12,10 @@ namespace smomot_s0_net_framework.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
+            System.Diagnostics.Trace.TraceInformation("カスタムメッセージです");
+            System.Diagnostics.Trace.TraceWarning("カスタムメッセージです");
+            System.Diagnostics.Trace.TraceError("カスタムメッセージです");
+
             return new string[] { "value1", "value2" };
         }
 
