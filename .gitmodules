@@ -1,9 +1,0 @@
-[submodule "php-mode"]
-	path = site-lisp/php-mode
-	url = https://github.com/ejmr/php-mode.git
-[submodule "enhanced-ruby-mode"]
-	path = site-lisp/enhanced-ruby-mode
-	url = https://github.com/jacott/Enhanced-Ruby-Mode.git
-[submodule "markdown-mode"]
-	path = site-lisp/markdown-mode
-	url = https://github.com/defunkt/markdown-mode.git
