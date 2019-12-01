@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{17378748-449A-49E9-8A6F-9EE755DB8B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "projects\ConsoleApp1\ConsoleApp1.csproj", "{17378748-449A-49E9-8A6F-9EE755DB8B8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject2", "UnitTestProject2\UnitTestProject2.csproj", "{E68792D9-53FD-4B99-91E3-85CA3AD76174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject2", "projects\UnitTestProject2\UnitTestProject2.csproj", "{E68792D9-53FD-4B99-91E3-85CA3AD76174}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{9E63938A-FCFE-4C7C-913F-69570FD362AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject1", "projects\UnitTestProject1\UnitTestProject1.csproj", "{9E63938A-FCFE-4C7C-913F-69570FD362AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{C80A73EB-073A-490F-A1DB-06DAFC8F4F02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "projects\ConsoleApp2\ConsoleApp2.csproj", "{C80A73EB-073A-490F-A1DB-06DAFC8F4F02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smomot-s0-net-framework", "smomot-s0-net-framework\smomot-s0-net-framework.csproj", "{3E6D564F-1FEB-4CD9-90A4-E175E5D390F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smomot-s0-net-framework.Tests", "smomot-s0-net-framework.Tests\smomot-s0-net-framework.Tests.csproj", "{7D24947F-11BE-4D22-A16B-6E9D1F5D5CBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleConsoleDotnetFramework", "SimpleConsoleDotnetFramework\SimpleConsoleDotnetFramework.csproj", "{5A676C1C-E128-49DC-8095-E19459ECF805}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleConsoleDotnetFramework", "projects\SimpleConsoleDotnetFramework\SimpleConsoleDotnetFramework.csproj", "{5A676C1C-E128-49DC-8095-E19459ECF805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1", "SMOMOT-WIN-F1\SMOMOT-WIN-F1.csproj", "{A7539B36-0261-408F-803F-4C4CC1CC8219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1", "projects\SMOMOT-WIN-F1\SMOMOT-WIN-F1.csproj", "{A7539B36-0261-408F-803F-4C4CC1CC8219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1.Tests", "SMOMOT-WIN-F1.Tests\SMOMOT-WIN-F1.Tests.csproj", "{03C2B4A3-6493-499F-814F-709E43982EDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMOMOT-WIN-F1.Tests", "projects\SMOMOT-WIN-F1.Tests\SMOMOT-WIN-F1.Tests.csproj", "{03C2B4A3-6493-499F-814F-709E43982EDA}"
 EndProject
 Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "momoto-lnx-node", "projects\momoto-lnx-node\momoto-lnx-node.mdproj", "{BB853507-F5D5-46C8-9BAA-3CD25A9625AF}"
 EndProject
