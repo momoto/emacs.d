@@ -7,8 +7,14 @@ using Swashbuckle.Application;
 
 namespace smomot_s0_net_framework
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SwaggerConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;

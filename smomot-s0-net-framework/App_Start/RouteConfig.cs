@@ -7,8 +7,15 @@ using System.Web.Routing;
 
 namespace smomot_s0_net_framework
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="routes"></param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

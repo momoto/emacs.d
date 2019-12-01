@@ -5,8 +5,15 @@ using System.Web.Http;
 
 namespace smomot_s0_net_framework
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Web API の設定およびサービス
