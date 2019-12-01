@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>GenericProject</ItemType>
+    <ProjectGuid>{BB853507-F5D5-46C8-9BAA-3CD25A9625AF}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include=".gitignore" />
+    <None Include="package-lock.json" />
+    <None Include="package.json" />
+    <None Include="app.js" />
+    <None Include="bin\www" />
+    <None Include="views\index.pug" />
+    <None Include="views\layout.pug" />
+    <None Include="views\error.pug" />
+    <None Include="routes\users.js" />
+    <None Include="routes\index.js" />
+    <None Include="public\stylesheets\style.css" />
+  </ItemGroup>
+</Project>
