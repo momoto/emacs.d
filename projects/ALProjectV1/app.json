@@ -1,0 +1,19 @@
+{
+  "id": "8b2ab112-37d5-40fc-8c1e-0be40bbc13b6",
+  "name": "ALProjectV1",
+  "publisher": "Default publisher",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "12.0.0.0",
+  "application": "12.0.0.0",
+  "showMyCode": true,
+  "runtime": "1.0"
+}
